@@ -1,5 +1,6 @@
 package de.vet.entity;
 
+import de.vet.utils.BinarySearchDrug;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -25,7 +26,7 @@ public class Appointment {
     private List<Drug> usedDrugs;
 
     public Appointment(){}
-    public Appointment(long appointmentID, String date, int priceVariant, String diagnose){
+    public Appointment(long appointmentID, String date, int priceVariant, String diagnose, GOT got, List<Drug> usedDrugs){
        this.appointmentID = appointmentID;
        this.date = date;
        if(isVariantValid(priceVariant)){
@@ -35,6 +36,8 @@ public class Appointment {
            this.priceVariant = 1;
        }
        this.diagnose = diagnose;
+       this.got = got;
+       this.usedDrugs = usedDrugs;
     }
 
     public Appointment(String date, int priceVariant, String diagnose){
@@ -46,8 +49,21 @@ public class Appointment {
             this.priceVariant = 1;
         }
         this.diagnose = diagnose;
+        this.got = got;
+        this.usedDrugs = usedDrugs;
     }
 
+    public void addDrug(Drug drug){
+        if(isDrugInList(drug)){
+
+        }else{
+            this.usedDrugs.add(drug);
+        }
+    }
+
+    private boolean isDrugInList(Drug drug){
+        return BinarySearchDrug.isInList(drug.getDrugID(), this.usedDrugs);
+    }
     private boolean isVariantValid(int priceVariant){
         if(priceVariant == 1 || priceVariant == 2 || priceVariant == 3){
             return true;
@@ -86,5 +102,21 @@ public class Appointment {
 
     public void setDiagnose(String diagnose) {
         this.diagnose = diagnose;
+    }
+
+    public GOT getGot() {
+        return got;
+    }
+
+    public void setGot(GOT got) {
+        this.got = got;
+    }
+
+    public List<Drug> getUsedDrugs() {
+        return usedDrugs;
+    }
+
+    public void setUsedDrugs(List<Drug> usedDrugs) {
+        this.usedDrugs = usedDrugs;
     }
 }
