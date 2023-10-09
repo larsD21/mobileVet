@@ -2,6 +2,8 @@ package de.vet.entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 //author Lars Diekmann
 @Entity
 @Table(name="Appointment")
@@ -17,9 +19,10 @@ public class Appointment {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "got", referencedColumnName = "gotID")
     private GOT got;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "drug", referencedColumnName = "drugID")
-    private Drug drug;
+    //private Patient patient
+    @ElementCollection
+    @CollectionTable(name = "UsedDrugs", joinColumns =@JoinColumn(name = "drugID"))
+    private List<Drug> usedDrugs;
 
     public Appointment(){}
     public Appointment(long appointmentID, String date, int priceVariant, String diagnose){
