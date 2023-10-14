@@ -1,5 +1,6 @@
-package de.vet.entity;
+package de.vet.entity.internal;
 
+import de.vet.entity.GOTTO;
 import jakarta.persistence.*;
 
 //author Lars Diekmann
@@ -7,11 +8,32 @@ import jakarta.persistence.*;
 @Table(name = "GOT")
 public class GOT {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "GOT", sequenceName = "GOT", allocationSize = 2)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "GOT")
     @Column(name = "gotID")
     private long gotID;
     private double price1;
     private double price2;
+    private double price3;
+
+    public GOT(){}
+
+    public GOT(long gotID, double price1, double price2, double price3) {
+        this.gotID = gotID;
+        this.price1 = price1;
+        this.price2 = price2;
+        this.price3 = price3;
+    }
+
+    public GOT(double price1, double price2, double price3) {
+        this.price1 = price1;
+        this.price2 = price2;
+        this.price3 = price3;
+    }
+
+    public GOTTO toGOTTO(){
+        return new GOTTO(this.gotID, this.price1, this.price2, this.price3);
+    }
 
     public long getGotID() {
         return gotID;
@@ -44,22 +66,5 @@ public class GOT {
     public void setPrice3(double price3) {
         this.price3 = price3;
     }
-
-    private double price3;
-    public GOT(){}
-
-    public GOT(long gotID, double price1, double price2, double price3) {
-        this.gotID = gotID;
-        this.price1 = price1;
-        this.price2 = price2;
-        this.price3 = price3;
-    }
-
-    public GOT(double price1, double price2, double price3) {
-        this.price1 = price1;
-        this.price2 = price2;
-        this.price3 = price3;
-    }
-
 
 }

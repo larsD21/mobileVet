@@ -1,17 +1,22 @@
 package de.vet.entity;
 
-import jakarta.persistence.*;
+import de.vet.entity.internal.Drug;
 
 //author Lars Diekmann
-@Entity
-@Table(name = "Drug")
-public class Drug {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "drugID")
+public class DrugTO {
     private long drugID;
     private String name;
     private double price;
+
+    public DrugTO(long drugID, String name, double price) {
+        this.drugID = drugID;
+        this.name = name;
+        this.price = price;
+    }
+
+    public Drug toDrug(){
+        return new Drug(this.drugID, this.name, this.price);
+    }
 
     public long getDrugID() {
         return drugID;
