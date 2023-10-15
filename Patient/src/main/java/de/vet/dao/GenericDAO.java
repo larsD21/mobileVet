@@ -11,7 +11,7 @@ import java.util.Map.Entry;
 //Based on results in OOP3 & VS
 public abstract class GenericDAO<T> {
 	
-	private final String UNIT_NAME = "MobileVetAppointment";
+	private final String UNIT_NAME = "MobileVetPatient";
 	
 	EntityManagerFactory emf = Persistence.createEntityManagerFactory(UNIT_NAME);
 	EntityManager em = emf.createEntityManager();

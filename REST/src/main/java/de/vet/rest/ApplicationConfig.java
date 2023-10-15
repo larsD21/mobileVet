@@ -35,6 +35,12 @@ public class ApplicationConfig extends Application {
         classes.add(CorsResponseFilter.class);
         classes.add(JWTTokenNeededFilter.class);
         classes.add(PatientResource.class);
+        classes.add(OwnerResource.class);
+        classes.add(AppointmentResource.class);
+        classes.add(DrugResource.class);
+        classes.add(GOTResource.class);
+        classes.add(VetResource.class);
+        classes.add(BillingResource.class);
         return classes;
     }
 }

@@ -28,4 +28,9 @@ public class GetAppointment implements IGetAppointment {
 
         return appointmentTOS;
     }
+
+    @Override
+    public AppointmentTO getAppointmentByID(long ID) {
+        return appointmentDAO.getAppointmentByID(ID).toAppointmentTO();
+    }
 }

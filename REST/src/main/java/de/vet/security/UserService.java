@@ -1,11 +1,11 @@
 package de.vet.security;
 
-import jakarta.ejb.Stateless;
+
+import de.vet.jwt.KeyGenerator;
+import de.vet.jwt.LogbackLogger;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.FormParam;
-import jakarta.ws.rs.GET;
 import jakarta.ws.rs.HeaderParam;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
@@ -15,7 +15,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.UriInfo;
 
-import jakarta.ws.rs.QueryParam;
+
 
 import static jakarta.ws.rs.core.HttpHeaders.AUTHORIZATION;
 import static jakarta.ws.rs.core.Response.Status.UNAUTHORIZED;
@@ -23,13 +23,10 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.logging.Logger;
-
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import de.verwaltungssystem.jwt.KeyGenerator;
-import de.verwaltungssystem.jwt.LogbackLogger;
-import de.security.entity.User;
-import de.security.facade.IUserFacade;
+import de.vet.security.facade.IUserFacade;
+import de.vet.security.entity.User;
 
 @Path("/users")
 @Produces(MediaType.APPLICATION_JSON)

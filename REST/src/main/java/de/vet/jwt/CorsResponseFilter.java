@@ -6,7 +6,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
-
+//author Lars Diekmann
 @WebFilter("/*")
 public class CorsResponseFilter implements Filter {
 

@@ -9,6 +9,8 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import de.vet.jwt.KeyGenerator;
+import de.vet.jwt.LogbackLogger;
 import jakarta.annotation.Priority;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Inject;
@@ -24,8 +26,6 @@ import jakarta.ws.rs.core.HttpHeaders;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.ext.Provider;
 
-import de.verwaltungssystem.jwt.KeyGenerator;
-import de.verwaltungssystem.jwt.LogbackLogger;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import java.io.Serializable;

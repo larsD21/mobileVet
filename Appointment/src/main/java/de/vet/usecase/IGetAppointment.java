@@ -9,4 +9,6 @@ import java.util.List;
 @Local
 public interface IGetAppointment {
     public List<AppointmentTO> getAllAppointments();
+
+    public AppointmentTO getAppointmentByID(long ID);
 }

@@ -22,4 +22,8 @@ public class AppointmentDAO extends GenericDAO<Appointment> {
     public List<Appointment> getAllAppointments(){
         return super.findAll();
     }
+
+    public Appointment getAppointmentByID(long ID){
+        return super.find(ID);
+    }
 }
