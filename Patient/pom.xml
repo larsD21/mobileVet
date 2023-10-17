@@ -14,9 +14,11 @@
 
 
     <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.compiler.release>11</maven.compiler.release>
+        <payaramicro.maven.plugin.version>2.0</payaramicro.maven.plugin.version>
+        <payaraVersion>6.2023.3</payaraVersion>
     </properties>
     <dependencies>
         <dependency>
@@ -51,10 +53,39 @@
             <artifactId>eclipselink</artifactId>
             <version>4.0.1</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.33</version>
+        </dependency>
+
     </dependencies>
 
     <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.0</version>
+            </plugin>
+            <plugin>
+                <groupId>fish.payara.maven.plugins</groupId>
+                <artifactId>payara-micro-maven-plugin</artifactId>
+                <version>${payaramicro.maven.plugin.version}</version>
+                <configuration>
+                    <payaraVersion>${payara.version}</payaraVersion>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>bundle</goal>
+                        </goals>
+                    </execution>
+                </executions>
 
+            </plugin>
+        </plugins>
     </build>
 
 </project>

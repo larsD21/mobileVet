@@ -4,13 +4,14 @@ package de.vet.entity.internal;
 import de.vet.entity.AppointmentTO;
 import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 //author Lars Diekmann
 @Entity
 @Table(name="Appointment")
-public class Appointment {
+public class Appointment implements Serializable {
     @Id
     @SequenceGenerator(name = "APPOINTMENT", sequenceName = "APPOINTMENT", allocationSize = 2)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "APPOINTMENT")

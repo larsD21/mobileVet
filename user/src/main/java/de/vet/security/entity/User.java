@@ -5,16 +5,8 @@ package de.vet.security.entity;
 import java.io.Serializable;
 import java.util.List;
 
-import jakarta.persistence.CollectionTable;
-import jakarta.persistence.Column;
-import jakarta.persistence.ElementCollection;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.NamedQuery;
-import jakarta.persistence.Table;
+import de.vet.entity.internal.Vet;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "t_user")
@@ -33,6 +25,10 @@ public class User implements Serializable {
 	@Column(unique = true)
 	private String username;
 	private String password;
+
+	@OneToOne
+	@JoinColumn(name = "vet", referencedColumnName = "vetID")
+	private Vet vet;
 	
 	@ElementCollection
 	@CollectionTable(name="t_user_roles", 
@@ -91,4 +87,8 @@ public class User implements Serializable {
 		return str;
 				
 	}
+
+	public Vet getVet(){return this.vet;}
+
+	public void setVet(Vet vet){this.vet = vet;}
 }

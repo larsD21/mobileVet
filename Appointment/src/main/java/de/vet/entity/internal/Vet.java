@@ -3,10 +3,12 @@ package de.vet.entity.internal;
 import de.vet.entity.VetTO;
 import jakarta.persistence.*;
 
+import java.io.Serializable;
+
 //author Lars Diekmann
 @Entity
 @Table(name = "Vet")
-public class Vet {
+public class Vet implements Serializable {
     @Id
     @SequenceGenerator(name = "VET", sequenceName = "VET", allocationSize = 2)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "VET")

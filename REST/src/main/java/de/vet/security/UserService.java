@@ -74,6 +74,11 @@ public class UserService {
 		}
 		String token = issueToken(user);
 		logger.info("### token ="+token);
+		if(user.getRoles().contains("VET")){
+			return Response.ok().header(AUTHORIZATION, "Bearer " +token)
+					.header("vetID", user.getVet().getVetID())
+					.build();
+		}
 		return Response.ok().header(AUTHORIZATION, "Bearer " +token).build();
 		
 	}	

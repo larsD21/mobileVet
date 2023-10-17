@@ -26,7 +26,7 @@ public class GOTResource {
 
     @GET
     @Path("getAll")
-    @JWTTokenNeeded(Permissions = Role.ADMIN)
+    @JWTTokenNeeded(Permissions = Role.VET)
     public List<GOTTO> getAllGOT(){
         return getGOT.getAllGOT();
     }

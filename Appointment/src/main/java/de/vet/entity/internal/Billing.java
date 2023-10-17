@@ -3,9 +3,11 @@ package de.vet.entity.internal;
 import de.vet.entity.BillingTO;
 import jakarta.persistence.*;
 
+import java.io.Serializable;
+
 @Entity
 @Table(name = "Billing")
-public class Billing {
+public class Billing implements Serializable {
     @Id
     @SequenceGenerator(name = "BILLING", sequenceName = "BILLING", allocationSize = 2)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "BILLING")

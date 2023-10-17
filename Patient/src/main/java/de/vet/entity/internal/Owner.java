@@ -3,10 +3,12 @@ package de.vet.entity.internal;
 import de.vet.entity.OwnerTO;
 import jakarta.persistence.*;
 
+import java.io.Serializable;
+
 //author Lars Diekmann
 @Entity
 @Table(name = "Owner")
-public class Owner {
+public class Owner implements Serializable {
     @Id
     @SequenceGenerator(name = "OWNER", sequenceName = "OWNER", allocationSize = 2)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "OWNER")

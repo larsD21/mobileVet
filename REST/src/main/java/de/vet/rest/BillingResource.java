@@ -23,7 +23,7 @@ public class BillingResource {
 
     @GET
     @Path("getBilling/{startDate}/{endDate}")
-    @JWTTokenNeeded(Permissions = Role.ADMIN)
+    @JWTTokenNeeded(Permissions = Role.ACCOUNTANT)
     public List<BillingTO> getAllBilling(@PathParam("startDate") String startDate, @PathParam("endDate") String endDate){
         return getBilling.getBillings(startDate, endDate);
     }

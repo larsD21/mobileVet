@@ -3,6 +3,8 @@ package de.vet.security;
 public enum Role {
 
 	USER,
-	ADMIN, 
+	ADMIN,
+	VET,
+	ACCOUNTANT,
 	NoRights
 }

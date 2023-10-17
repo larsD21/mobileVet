@@ -26,7 +26,7 @@ public class PatientResource {
 
     @POST
     @Path("create")
-    @JWTTokenNeeded(Permissions = Role.ADMIN)
+    @JWTTokenNeeded(Permissions = Role.VET)
     public Response createPatient(PatientTO patientTO){
         managePatient.createPatient(patientTO);
         return Response.ok().build();
@@ -34,7 +34,7 @@ public class PatientResource {
 
     @GET
     @Path("get/{id}")
-    @JWTTokenNeeded(Permissions = Role.ADMIN)
+    @JWTTokenNeeded(Permissions = Role.VET)
     public PatientTO getPatient(@PathParam("id") long ID){
         return getPatient.getPatientByID(ID);
     }

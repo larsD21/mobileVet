@@ -3,7 +3,7 @@
   <persistence-unit name="MobileVetUser" transaction-type="JTA">
  <!--  <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider> -->
   
-  <jta-data-source> app/OracleDS</jta-data-source>
+  <jta-data-source> PROD/MYSQL</jta-data-source>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
     <!--      <property name="javax.persistence.schema-generation.database.action" value="create"/>

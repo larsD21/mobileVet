@@ -12,11 +12,19 @@
     <artifactId>REST</artifactId>
     <packaging>war</packaging>
 
-
     <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <javase.version>11</javase.version>
+        <maven.compiler.release>11</maven.compiler.release>
+        <failOnMissingWebXml>false</failOnMissingWebXml>
+
+        <!-- Jakarta EE API -->
+        <jakartaee-api.version>10.0.0</jakartaee-api.version>
+
+        <!-- Payara server -->
+        <payara.version>6.2023.3</payara.version>
+
     </properties>
 
 
@@ -86,6 +94,28 @@
 
     <build>
 
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>${javase.version}</source>
+                    <target>${javase.version}</target>
+                </configuration>
+            </plugin>
+
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.3.2</version>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
+
+        </plugins>
     </build>
 
 </project>
