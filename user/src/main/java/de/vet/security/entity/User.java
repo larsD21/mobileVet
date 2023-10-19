@@ -5,7 +5,6 @@ package de.vet.security.entity;
 import java.io.Serializable;
 import java.util.List;
 
-import de.vet.entity.internal.Vet;
 import jakarta.persistence.*;
 
 @Entity
@@ -26,9 +25,7 @@ public class User implements Serializable {
 	private String username;
 	private String password;
 
-	@OneToOne
-	@JoinColumn(name = "vet", referencedColumnName = "vetID")
-	private Vet vet;
+	private long vetID;
 	
 	@ElementCollection
 	@CollectionTable(name="t_user_roles", 
@@ -88,7 +85,7 @@ public class User implements Serializable {
 				
 	}
 
-	public Vet getVet(){return this.vet;}
+	public long getVetID(){return this.vetID;}
 
-	public void setVet(Vet vet){this.vet = vet;}
+	public void setVetID(long vetID){this.vetID = vetID;}
 }

@@ -76,7 +76,7 @@ public class UserService {
 		logger.info("### token ="+token);
 		if(user.getRoles().contains("VET")){
 			return Response.ok().header(AUTHORIZATION, "Bearer " +token)
-					.header("vetID", user.getVet().getVetID())
+					.header("vetID", user.getVetID())
 					.build();
 		}
 		return Response.ok().header(AUTHORIZATION, "Bearer " +token).build();
