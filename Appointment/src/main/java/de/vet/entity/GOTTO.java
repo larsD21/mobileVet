@@ -1,17 +1,24 @@
 package de.vet.entity;
 
-import jakarta.persistence.*;
+import de.vet.entity.internal.GOT;
 
 //author Lars Diekmann
-@Entity
-@Table(name = "GOT")
-public class GOT {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "gotID")
+public class GOTTO {
     private long gotID;
     private double price1;
     private double price2;
+    private double price3;
+
+    public GOTTO(long gotID, double price1, double price2, double price3) {
+        this.gotID = gotID;
+        this.price1 = price1;
+        this.price2 = price2;
+        this.price3 = price3;
+    }
+
+    public GOT toGOT(){
+        return new GOT(this.gotID, this.price1, this.price2, this.price3);
+    }
 
     public long getGotID() {
         return gotID;
@@ -44,22 +51,4 @@ public class GOT {
     public void setPrice3(double price3) {
         this.price3 = price3;
     }
-
-    private double price3;
-    public GOT(){}
-
-    public GOT(long gotID, double price1, double price2, double price3) {
-        this.gotID = gotID;
-        this.price1 = price1;
-        this.price2 = price2;
-        this.price3 = price3;
-    }
-
-    public GOT(double price1, double price2, double price3) {
-        this.price1 = price1;
-        this.price2 = price2;
-        this.price3 = price3;
-    }
-
-
 }
