@@ -1,10 +1,10 @@
 package de.vet.rest;
 
-import de.vet.entity.PatientTO;
+import de.patient.entity.PatientTO;
 import de.vet.security.JWTTokenNeeded;
 import de.vet.security.Role;
-import de.vet.usecase.IGetPatient;
-import de.vet.usecase.IManagePatient;
+import de.patient.usecase.IGetPatient;
+import de.patient.usecase.IManagePatient;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;

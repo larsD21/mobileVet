@@ -1,9 +1,9 @@
 package de.vet.rest;
 
-import de.vet.entity.BillingTO;
+import de.appointment.entity.BillingTO;
 import de.vet.security.JWTTokenNeeded;
 import de.vet.security.Role;
-import de.vet.usecase.IGetBilling;
+import de.appointment.usecase.IGetBilling;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;

@@ -1,9 +1,9 @@
 package de.vet.rest;
 
-import de.vet.entity.DrugTO;
+import de.appointment.entity.DrugTO;
 import de.vet.security.JWTTokenNeeded;
 import de.vet.security.Role;
-import de.vet.usecase.IGetDrug;
+import de.appointment.usecase.IGetDrug;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
@@ -24,7 +24,7 @@ public class DrugResource {
 
     @GET
     @Path("getAll")
-    @JWTTokenNeeded(Permissions = Role.VET)
+    //@JWTTokenNeeded(Permissions = Role.VET)
     public List<DrugTO> getAllDrug(){
         return getDrug.getAllDrugs();
     }

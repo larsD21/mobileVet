@@ -1,9 +1,9 @@
 package de.vet.rest;
 
-import de.vet.entity.VetTO;
+import de.appointment.entity.VetTO;
 import de.vet.security.JWTTokenNeeded;
 import de.vet.security.Role;
-import de.vet.usecase.IGetVet;
+import de.appointment.usecase.IGetVet;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;

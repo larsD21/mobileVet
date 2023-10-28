@@ -1,10 +1,10 @@
 package de.vet.rest;
 
-import de.vet.entity.AppointmentTO;
+import de.appointment.entity.AppointmentTO;
 import de.vet.security.JWTTokenNeeded;
 import de.vet.security.Role;
-import de.vet.usecase.IGetAppointment;
-import de.vet.usecase.IManageAppointment;
+import de.appointment.usecase.IGetAppointment;
+import de.appointment.usecase.IManageAppointment;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
