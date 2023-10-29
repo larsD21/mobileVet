@@ -11,6 +11,9 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
+import java.io.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 //Author Lars Diekmann
@@ -32,6 +35,31 @@ public class AppointmentResource {
     public Response createAppointment(AppointmentTO appointment){
         manageAppointment.createAppointment(appointment);
         return Response.ok().build();
+    }
+
+    @POST
+    @Path("uploadImage")
+    @Consumes(MediaType.APPLICATION_OCTET_STREAM)
+    @JWTTokenNeeded(Permissions = Role.VET)
+    public Response uploadImage(InputStream imageStream){
+        String imageDirectory = "/home/mattern/Dokumente/images";
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
+        String imageName = "image_" + dateFormat.format(new Date()) + ".png";
+
+        try {
+            File file = new File(imageDirectory, imageName);
+            try (OutputStream outputStream = new FileOutputStream(file)) {
+                int bytesRead;
+                byte[] buffer = new byte[1024];
+                while ((bytesRead = imageStream.read(buffer)) != -1) {
+                    outputStream.write(buffer, 0, bytesRead);
+                }
+            }
+            String imagePath = imageDirectory + imageName;
+            return Response.ok(imagePath).build();
+        } catch (IOException e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Fehler beim Speichern des Bildes").build();
+        }
     }
 
     @POST
