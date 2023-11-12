@@ -3,6 +3,8 @@ package de.patient.dao;
 import de.patient.entity.internal.Patient;
 import jakarta.ejb.Stateless;
 
+import java.util.List;
+
 //Author Lars Diekmann
 @Stateless
 public class PatientDAO extends GenericDAO<Patient> {
@@ -16,5 +18,9 @@ public class PatientDAO extends GenericDAO<Patient> {
 
     public void createPatient(Patient patient){
         super.save(patient);
+    }
+
+    public List<Patient> getAllPatient(){
+        return super.findAll();
     }
 }

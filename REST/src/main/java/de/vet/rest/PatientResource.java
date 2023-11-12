@@ -11,6 +11,8 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
+import java.util.List;
+
 //author Lars Diekmann
 
 @Path("patient")
@@ -26,7 +28,7 @@ public class PatientResource {
 
     @POST
     @Path("create")
-    @JWTTokenNeeded(Permissions = Role.VET)
+    //@JWTTokenNeeded(Permissions = Role.VET)
     public Response createPatient(PatientTO patientTO){
         managePatient.createPatient(patientTO);
         return Response.ok().build();
@@ -34,8 +36,15 @@ public class PatientResource {
 
     @GET
     @Path("get/{id}")
-    @JWTTokenNeeded(Permissions = Role.VET)
+    //@JWTTokenNeeded(Permissions = Role.VET)
     public PatientTO getPatient(@PathParam("id") long ID){
         return getPatient.getPatientByID(ID);
+    }
+
+    @GET
+    @Path("getAll")
+    //@JWTTokenNeeded(Permissions = Role.VET)
+    public List<PatientTO> getAll(){
+        return getPatient.getALlPatient();
     }
 }

@@ -31,7 +31,7 @@ public class AppointmentResource {
 
     @POST
     @Path("create")
-    @JWTTokenNeeded(Permissions = Role.VET)
+    //@JWTTokenNeeded(Permissions = Role.VET)
     public Response createAppointment(AppointmentTO appointment){
         manageAppointment.createAppointment(appointment);
         return Response.ok().build();
@@ -39,7 +39,7 @@ public class AppointmentResource {
 
     @POST
     @Path("edit")
-    @JWTTokenNeeded(Permissions = Role.VET)
+    //@JWTTokenNeeded(Permissions = Role.VET)
     public Response editAppointment(AppointmentTO appointment){
         manageAppointment.editAppointment(appointment);
         return Response.ok().build();
@@ -47,7 +47,7 @@ public class AppointmentResource {
 
     @GET
     @Path("getAll")
-    @JWTTokenNeeded(Permissions = Role.VET)
+    //@JWTTokenNeeded(Permissions = Role.VET)
     public List<AppointmentTO> getAllAppointment(){
         return getAppointment.getAllAppointments();
     }

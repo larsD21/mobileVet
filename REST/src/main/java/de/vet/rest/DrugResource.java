@@ -31,7 +31,7 @@ public class DrugResource {
 
     @GET
     @Path("get/{id}")
-    @JWTTokenNeeded(Permissions = Role.VET)
+    //@JWTTokenNeeded(Permissions = Role.VET)
     public DrugTO getDrug(@PathParam("id") long ID){
         return getDrug.getDrugByID(ID);
     }

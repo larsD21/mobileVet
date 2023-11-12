@@ -21,9 +21,9 @@ public class Appointment implements Serializable {
     private int priceVariant;
     private String picturePath;
     private String diagnose;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "got")
-    private GOT got;
+    @ElementCollection
+    @CollectionTable(name = "got", joinColumns = @JoinColumn(name = "gotID"))
+    private List<GOT> got;
 
     private long patient;
     @ElementCollection
@@ -34,7 +34,7 @@ public class Appointment implements Serializable {
     private Vet vet;
 
     public Appointment(){}
-    public Appointment(long appointmentID, String appointmentDate, int priceVariant, String picturePath, String diagnose, GOT got, long patient, List<Drug> usedDrugs, Vet vet){
+    public Appointment(long appointmentID, String appointmentDate, int priceVariant, String picturePath, String diagnose, List<GOT> got, long patient, List<Drug> usedDrugs, Vet vet){
        this.appointmentID = appointmentID;
        this.appointmentDate = appointmentDate;
        if(isVariantValid(priceVariant)){
@@ -51,7 +51,7 @@ public class Appointment implements Serializable {
        this.vet = vet;
     }
 
-    public Appointment(String appointmentDate, int priceVariant, String picturePath, String diagnose, GOT got, long patient, List<Drug> usedDrugs, Vet vet){
+    public Appointment(String appointmentDate, int priceVariant, String picturePath, String diagnose, List<GOT> got, long patient, List<Drug> usedDrugs, Vet vet){
         this.appointmentDate = appointmentDate;
         if(isVariantValid(priceVariant)){
             this.priceVariant = priceVariant;
@@ -127,11 +127,11 @@ public class Appointment implements Serializable {
         this.diagnose = diagnose;
     }
 
-    public GOT getGot() {
+    public List<GOT> getGot() {
         return got;
     }
 
-    public void setGot(GOT got) {
+    public void setGot(List<GOT> got) {
         this.got = got;
     }
 

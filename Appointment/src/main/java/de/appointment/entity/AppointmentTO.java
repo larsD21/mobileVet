@@ -16,12 +16,12 @@ public class AppointmentTO {
     private int priceVariant;
     private String picturePath;
     private String diagnose;
-    private GOT got;
+    private List<GOT> got;
     private long patient;
     private List<Long> usedDrugs;
     private Vet vet;
 
-    public AppointmentTO(long appointmentID, String date, int priceVariant,String picturePath, String diagnose, GOT got, long patient, List<Long> usedDrugs, Vet vet) {
+    public AppointmentTO(long appointmentID, String date, int priceVariant,String picturePath, String diagnose, List<GOT> got, long patient, List<Long> usedDrugs, Vet vet) {
         this.appointmentID = appointmentID;
         this.date = date;
         this.priceVariant = priceVariant;
@@ -73,11 +73,11 @@ public class AppointmentTO {
         this.diagnose = diagnose;
     }
 
-    public GOT getGotID() {
+    public List<GOT> getGotID() {
         return this.got;
     }
 
-    public void setGotID(GOT got) {
+    public void setGotID(List<GOT> got) {
         this.got = got;
     }
 
@@ -113,11 +113,4 @@ public class AppointmentTO {
         this.picturePath = picturePath;
     }
 
-    public GOT getGot() {
-        return got;
-    }
-
-    public void setGot(GOT got) {
-        this.got = got;
-    }
 }

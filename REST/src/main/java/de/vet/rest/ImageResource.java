@@ -16,7 +16,7 @@ import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-//Author Lars Diekmann
+// Author Lars Diekmann
 @Path("image")
 @Stateless
 @Consumes(MediaType.APPLICATION_OCTET_STREAM)
@@ -25,8 +25,8 @@ public class ImageResource {
 
     @POST
     @Path("uploadImage")
-    @JWTTokenNeeded(Permissions = Role.VET)
-    public Response uploadImage(InputStream imageStream){
+    //@JWTTokenNeeded(Permissions = Role.VET)
+    public Response uploadImage(InputStream imageStream) {
         String imageDirectory = "/home/mattern/Dokumente/images";
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
         String imageName = "image_" + dateFormat.format(new Date()) + ".png";
@@ -40,11 +40,14 @@ public class ImageResource {
                     outputStream.write(buffer, 0, bytesRead);
                 }
             }
-            String imagePath = imageDirectory + imageName;
-            return Response.ok(imagePath).build();
+            String imagePath = imageDirectory + File.separator + imageName;
+            return Response.ok(imagePath)
+                    .header("Content-Disposition", "attachment; filename=\"" + imageName + "\"")
+                    .build();
         } catch (IOException e) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Fehler beim Speichern des Bildes").build();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity("Fehler beim Speichern des Bildes: " + e.getMessage())
+                    .build();
         }
     }
-
 }
