@@ -10,6 +10,8 @@ public class GOTTO {
     private double price2;
     private double price3;
 
+    public GOTTO(){}
+
     public GOTTO(long gotID, String description,double price1, double price2, double price3) {
         this.gotID = gotID;
         this.description = description;

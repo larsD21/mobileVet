@@ -10,9 +10,9 @@
     <packaging>pom</packaging>
     <modules>
         <module>REST</module>
-        <module>Patient</module>
         <module>Appointment</module>
         <module>user</module>
+        <module>Patients</module>
     </modules>
 
 </project>

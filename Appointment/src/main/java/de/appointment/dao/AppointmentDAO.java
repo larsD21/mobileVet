@@ -12,7 +12,7 @@ public class AppointmentDAO extends GenericDAO<Appointment> {
     }
 
     public void createAppointment(Appointment appointment){
-        super.save(appointment);
+        super.update(appointment);
     }
 
     public void editAppointment(Appointment appointment){

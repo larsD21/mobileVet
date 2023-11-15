@@ -2,6 +2,8 @@ package de.appointment.entity.internal;
 
 
 import de.appointment.entity.AppointmentTO;
+import de.appointment.entity.DrugTO;
+import de.appointment.entity.GOTTO;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -21,13 +23,23 @@ public class Appointment implements Serializable {
     private int priceVariant;
     private String picturePath;
     private String diagnose;
-    @ElementCollection
-    @CollectionTable(name = "got", joinColumns = @JoinColumn(name = "gotID"))
+
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "Appointment_GOT",
+            joinColumns = @JoinColumn(name = "appointmentID"),
+            inverseJoinColumns = @JoinColumn(name = "gotID")
+    )
     private List<GOT> got;
 
     private long patient;
-    @ElementCollection
-    @CollectionTable(name = "UsedDrugs", joinColumns =@JoinColumn(name = "drugID"))
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "Appointment_Drug",
+            joinColumns = @JoinColumn(name = "appointmentID"),
+            inverseJoinColumns = @JoinColumn(name = "drugID")
+    )
     private List<Drug> usedDrugs;
     @OneToOne(cascade =  CascadeType.ALL)
     @JoinColumn(name = "vet")
@@ -68,11 +80,16 @@ public class Appointment implements Serializable {
     }
 
     public AppointmentTO toAppointmentTO(){
-        List<Long> usedDrugsID = new ArrayList<>();
+        List<DrugTO> usedDrugs = new ArrayList<>();
+        List<GOTTO> got = new ArrayList<>();
         for (Drug i : this.usedDrugs){
-            usedDrugsID.add(i.getDrugID());
+            usedDrugs.add(i.toDrugTO());
         }
-        return new AppointmentTO(this.appointmentID,this.appointmentDate,this.priceVariant, this.picturePath, this.diagnose, this.got, this.patient ,usedDrugsID, this.vet);
+
+        for(GOT i : this.got){
+            got.add(i.toGOTTO());
+        }
+        return new AppointmentTO(this.appointmentID,this.appointmentDate,this.priceVariant, this.picturePath, this.diagnose, got, this.patient ,usedDrugs, this.vet.getVetID(), this.vet.getFirstName(), this.vet.getLastName());
     }
 
     public void addDrug(Drug drug){

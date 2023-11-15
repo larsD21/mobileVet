@@ -1,8 +1,8 @@
 package de.appointment.entity.internal;
 
 import de.appointment.entity.BillingTO;
-import de.patient.usecase.IGetPatient;
-import de.patient.usecase.implementation.GetPatient;
+import de.patients.usecase.IGetPatient;
+import de.patients.usecase.implementation.GetPatient;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
