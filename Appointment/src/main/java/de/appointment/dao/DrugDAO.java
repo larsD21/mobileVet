@@ -5,6 +5,8 @@ import jakarta.ejb.Stateless;
 
 import java.util.List;
 
+//author Lars Diekmann
+
 @Stateless
 public class DrugDAO extends GenericDAO<Drug> {
     public DrugDAO(){

@@ -22,8 +22,8 @@ public class GetOwner implements IGetOwner {
         List<OwnerTO> ownerTOS = new ArrayList<>();
 
         allOwner.forEach(owner -> {
-            OwnerTO drugTO = owner.toOwnerTO();
-            ownerTOS.add(drugTO);
+            OwnerTO ownerTO = owner.toOwnerTO();
+            ownerTOS.add(ownerTO);
         });
 
         return ownerTOS;

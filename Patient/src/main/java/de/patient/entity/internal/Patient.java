@@ -31,15 +31,8 @@ public class Patient implements Serializable {
         this.owner = owner;
     }
 
-    public Patient(String species, String name, long identNumber, Owner owner) {
-        this.species = species;
-        this.name = name;
-        this.identNumber = identNumber;
-        this.owner = owner;
-    }
-
     public PatientTO toPatientTO(){
-        return new PatientTO(this.patientID, this.species, this.name, this.identNumber, this.owner);
+        return new PatientTO(this.patientID, this.species, this.name, this.identNumber, this.owner.getOwnerID(),this.owner.getLastName(),this.owner.getFirstName(),this.owner.getPlace(),this.owner.getZipCode(),this.owner.getStreet(),this.owner.getHouseNumber(),this.owner.getEmail(),this.owner.getPhoneNumber());
     }
 
     public long getPatientID() {
@@ -81,4 +74,6 @@ public class Patient implements Serializable {
     public void setOwner(Owner owner) {
         this.owner = owner;
     }
+
+
 }

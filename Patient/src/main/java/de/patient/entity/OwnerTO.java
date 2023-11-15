@@ -13,8 +13,21 @@ public class OwnerTO {
     private String email;
     private String phoneNumber;
 
+    public OwnerTO (){}
+
     public OwnerTO(long ownerID, String lastName, String firstName, String place, String zipCode, String street, String houseNumber, String email, String phoneNumber) {
         this.ownerID = ownerID;
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.place = place;
+        this.zipCode = zipCode;
+        this.street = street;
+        this.houseNumber = houseNumber;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+    }
+
+    public OwnerTO(String lastName, String firstName, String place, String zipCode, String street, String houseNumber, String email, String phoneNumber) {
         this.lastName = lastName;
         this.firstName = firstName;
         this.place = place;

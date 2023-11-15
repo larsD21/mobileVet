@@ -33,8 +33,6 @@ public class ApplicationConfig extends Application {
     public Set<Class<?>> getClasses() {
         Set<Class<?>> classes = new HashSet<>();
         classes.add(CorsResponseFilter.class);
-        classes.add(PatientResource.class);
-        classes.add(OwnerResource.class);
         classes.add(AppointmentResource.class);
         classes.add(DrugResource.class);
         classes.add(GOTResource.class);
@@ -42,6 +40,8 @@ public class ApplicationConfig extends Application {
         classes.add(BillingResource.class);
         classes.add(UserService.class);
         classes.add(ImageResource.class);
+        classes.add(OwnerResource.class);
+        classes.add(PatientResource.class);
         classes.add(JWTTokenNeededFilter.class);
         return classes;
     }

@@ -21,19 +21,10 @@ public class CorsResponseFilter implements Filter {
             throws IOException, ServletException {
         HttpServletResponse httpResponse = (HttpServletResponse) response;
 
-        // Allow credentials
-        httpResponse.setHeader("Access-Control-Allow-Credentials", "true");
-
-        // Set CORS headers only for specific origins (replace '*' with the actual origin)
-        httpResponse.setHeader("Access-Control-Allow-Origin", "http://localhost:5173");
+        // Set CORS headers
+        httpResponse.setHeader("Access-Control-Allow-Origin", "*");
         httpResponse.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
         httpResponse.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-
-        // Handle preflight OPTIONS request
-        if ("OPTIONS".equalsIgnoreCase(((HttpServletRequest) request).getMethod())) {
-            httpResponse.setStatus(HttpServletResponse.SC_OK);
-            return;
-        }
 
         // Continue the filter chain
         chain.doFilter(request, response);

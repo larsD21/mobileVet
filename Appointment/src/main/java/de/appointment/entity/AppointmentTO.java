@@ -21,8 +21,21 @@ public class AppointmentTO {
     private List<Long> usedDrugs;
     private Vet vet;
 
+    public AppointmentTO(){}
+
     public AppointmentTO(long appointmentID, String date, int priceVariant,String picturePath, String diagnose, List<GOT> got, long patient, List<Long> usedDrugs, Vet vet) {
         this.appointmentID = appointmentID;
+        this.date = date;
+        this.priceVariant = priceVariant;
+        this.picturePath = picturePath;
+        this.diagnose = diagnose;
+        this.got = got;
+        this.patient = patient;
+        this.usedDrugs = usedDrugs;
+        this.vet = vet;
+    }
+
+    public AppointmentTO(String date, int priceVariant, String picturePath, String diagnose, List<GOT> got, long patient, List<Long> usedDrugs, Vet vet) {
         this.date = date;
         this.priceVariant = priceVariant;
         this.picturePath = picturePath;
