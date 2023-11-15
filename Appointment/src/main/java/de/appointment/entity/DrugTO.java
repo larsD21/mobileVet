@@ -8,6 +8,7 @@ public class DrugTO {
     private String name;
     private double price;
 
+    public DrugTO(){}
     public DrugTO(long drugID, String name, double price) {
         this.drugID = drugID;
         this.name = name;

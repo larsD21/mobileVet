@@ -1,11 +1,13 @@
 package de.appointment.entity.internal;
 
 import de.appointment.entity.BillingTO;
-import de.patient.usecase.IGetPatient;
-import de.patient.usecase.implementation.GetPatient;
+import de.patients.usecase.IGetPatient;
+import de.patients.usecase.implementation.GetPatient;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "Billing")
@@ -35,6 +37,10 @@ public class Billing implements Serializable {
 
     public BillingTO toBillingTO(){
         IGetPatient getPatient = new GetPatient();
+        List<Long> gotIDs = new ArrayList<>();
+        for(GOT got : this.appointment.getGot()){
+            gotIDs.add(got.getGotID());
+        }
         return new BillingTO(this.billingID,
                 this.appointment.getAppointmentID(),
                 this.appointment.getAppointmentDate(),
@@ -42,7 +48,7 @@ public class Billing implements Serializable {
                 this.appointment.getVet().getLastName(),
                 getPatient.getPatientByID(this.appointment.getPatient()).getSpecies(),
                 this.appointment.getDiagnose(),
-                this.appointment.getGot().getGotID(),
+                gotIDs,
                 this.cost,
                 this.tax);
     }

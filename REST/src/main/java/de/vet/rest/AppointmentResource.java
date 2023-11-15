@@ -31,40 +31,15 @@ public class AppointmentResource {
 
     @POST
     @Path("create")
-    @JWTTokenNeeded(Permissions = Role.VET)
+    //@JWTTokenNeeded(Permissions = Role.VET)
     public Response createAppointment(AppointmentTO appointment){
         manageAppointment.createAppointment(appointment);
         return Response.ok().build();
     }
 
     @POST
-    @Path("uploadImage")
-    @Consumes(MediaType.APPLICATION_OCTET_STREAM)
-    @JWTTokenNeeded(Permissions = Role.VET)
-    public Response uploadImage(InputStream imageStream){
-        String imageDirectory = "/home/mattern/Dokumente/images";
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
-        String imageName = "image_" + dateFormat.format(new Date()) + ".png";
-
-        try {
-            File file = new File(imageDirectory, imageName);
-            try (OutputStream outputStream = new FileOutputStream(file)) {
-                int bytesRead;
-                byte[] buffer = new byte[1024];
-                while ((bytesRead = imageStream.read(buffer)) != -1) {
-                    outputStream.write(buffer, 0, bytesRead);
-                }
-            }
-            String imagePath = imageDirectory + imageName;
-            return Response.ok(imagePath).build();
-        } catch (IOException e) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Fehler beim Speichern des Bildes").build();
-        }
-    }
-
-    @POST
     @Path("edit")
-    @JWTTokenNeeded(Permissions = Role.VET)
+    //@JWTTokenNeeded(Permissions = Role.VET)
     public Response editAppointment(AppointmentTO appointment){
         manageAppointment.editAppointment(appointment);
         return Response.ok().build();
@@ -72,7 +47,7 @@ public class AppointmentResource {
 
     @GET
     @Path("getAll")
-    @JWTTokenNeeded(Permissions = Role.VET)
+    //@JWTTokenNeeded(Permissions = Role.VET)
     public List<AppointmentTO> getAllAppointment(){
         return getAppointment.getAllAppointments();
     }

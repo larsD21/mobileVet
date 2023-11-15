@@ -4,7 +4,7 @@ import de.appointment.entity.internal.Appointment;
 import de.appointment.entity.internal.Drug;
 import de.appointment.entity.internal.GOT;
 import de.appointment.entity.internal.Vet;
-import de.patient.usecase.implementation.GetPatient;
+import de.patients.usecase.implementation.GetPatient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,12 +16,17 @@ public class AppointmentTO {
     private int priceVariant;
     private String picturePath;
     private String diagnose;
-    private GOT got;
+    private List<GOTTO> got;
     private long patient;
-    private List<Long> usedDrugs;
-    private Vet vet;
+    private List<DrugTO> usedDrugs;
+    private long vetID;
+    private String lastName;
+    private String firstName;
 
-    public AppointmentTO(long appointmentID, String date, int priceVariant,String picturePath, String diagnose, GOT got, long patient, List<Long> usedDrugs, Vet vet) {
+
+    public AppointmentTO(){}
+
+    public AppointmentTO(long appointmentID, String date, int priceVariant,String picturePath, String diagnose, List<GOTTO> got, long patient, List<DrugTO> usedDrugs, long vetID, String firstName, String lastName) {
         this.appointmentID = appointmentID;
         this.date = date;
         this.priceVariant = priceVariant;
@@ -30,15 +35,35 @@ public class AppointmentTO {
         this.got = got;
         this.patient = patient;
         this.usedDrugs = usedDrugs;
-        this.vet = vet;
+        this.vetID = vetID;
+        this.lastName = lastName;
+        this.firstName = firstName;
+    }
+
+    public AppointmentTO(String date, int priceVariant, String picturePath, String diagnose, List<GOTTO> got, long patient, List<DrugTO> usedDrugs, long vetID, String firstName, String lastName) {
+        this.date = date;
+        this.priceVariant = priceVariant;
+        this.picturePath = picturePath;
+        this.diagnose = diagnose;
+        this.got = got;
+        this.patient = patient;
+        this.usedDrugs = usedDrugs;
+        this.vetID = vetID;
+        this.lastName = lastName;
+        this.firstName = firstName;
     }
 
     public Appointment toAppointment(){
         List<Drug> usedDrugs = new ArrayList<>();
-        for(Long i : this.usedDrugs){
-            usedDrugs.add(new Drug());
+        List<GOT> got = new ArrayList<>();
+        for(DrugTO i : this.usedDrugs){
+            usedDrugs.add(i.toDrug());
         }
-        return new Appointment(this.appointmentID, this.date, this.priceVariant,this.picturePath, this.diagnose, this.got, this.patient, usedDrugs, this.vet);
+
+        for(GOTTO i : this.got){
+            got.add(i.toGOT());
+        }
+        return new Appointment(this.appointmentID, this.date, this.priceVariant,this.picturePath, this.diagnose, got, this.patient, usedDrugs, new Vet(this.vetID, this.lastName, this.firstName));
     }
 
     public long getAppointmentID() {
@@ -73,20 +98,12 @@ public class AppointmentTO {
         this.diagnose = diagnose;
     }
 
-    public GOT getGotID() {
-        return this.got;
+    public List<GOTTO> getGot() {
+        return got;
     }
 
-    public void setGotID(GOT got) {
+    public void setGot(List<GOTTO> got) {
         this.got = got;
-    }
-
-    public List<Long> getUsedDrugs() {
-        return usedDrugs;
-    }
-
-    public void setUsedDrugs(List<Long> usedDrugs) {
-        this.usedDrugs = usedDrugs;
     }
 
     public long getPatient() {
@@ -97,12 +114,36 @@ public class AppointmentTO {
         this.patient = patient;
     }
 
-    public Vet getVet() {
-        return vet;
+    public List<DrugTO> getUsedDrugs() {
+        return usedDrugs;
     }
 
-    public void setVet(Vet vet) {
-        this.vet = vet;
+    public void setUsedDrugs(List<DrugTO> usedDrugs) {
+        this.usedDrugs = usedDrugs;
+    }
+
+    public long getVetID() {
+        return vetID;
+    }
+
+    public void setVetID(long vetID) {
+        this.vetID = vetID;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getPicturePath() {
@@ -113,11 +154,4 @@ public class AppointmentTO {
         this.picturePath = picturePath;
     }
 
-    public GOT getGot() {
-        return got;
-    }
-
-    public void setGot(GOT got) {
-        this.got = got;
-    }
 }

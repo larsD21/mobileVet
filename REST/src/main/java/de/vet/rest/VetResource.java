@@ -21,7 +21,7 @@ public class VetResource {
 
     @GET
     @Path("get/{id}")
-    @JWTTokenNeeded(Permissions = Role.VET)
+    //@JWTTokenNeeded(Permissions = Role.VET)
     public VetTO getVet(@PathParam("id") long ID){
         return getVet.getVetByID(ID);
     }

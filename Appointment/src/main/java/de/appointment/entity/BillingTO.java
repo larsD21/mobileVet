@@ -4,6 +4,8 @@ import de.appointment.entity.internal.Billing;
 import de.appointment.usecase.IGetAppointment;
 import de.appointment.usecase.implementation.GetAppointment;
 
+import java.util.List;
+
 public class BillingTO {
     private long billingID;
     private long appointmentID;
@@ -12,11 +14,11 @@ public class BillingTO {
     private String vetLastName;
     private String species;
     private String diagnose;
-    private long gotID;
+    private List<Long> gotID;
     private double cost;
     private double tax;
 
-    public BillingTO(long billingID, long appointmentID, String date, String vetFirstName, String vetLastName, String species, String diagnose, long gotID, double cost, double tax) {
+    public BillingTO(long billingID, long appointmentID, String date, String vetFirstName, String vetLastName, String species, String diagnose, List<Long> gotID, double cost, double tax) {
         this.billingID = billingID;
         this.appointmentID = appointmentID;
         this.date = date;
@@ -90,11 +92,11 @@ public class BillingTO {
         this.diagnose = diagnose;
     }
 
-    public long getGotID() {
+    public List<Long> getGotID() {
         return gotID;
     }
 
-    public void setGotID(long gotID) {
+    public void setGotID(List<Long> gotID) {
         this.gotID = gotID;
     }
 

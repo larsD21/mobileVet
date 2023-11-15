@@ -2,6 +2,8 @@ package de.appointment.entity.internal;
 
 
 import de.appointment.entity.AppointmentTO;
+import de.appointment.entity.DrugTO;
+import de.appointment.entity.GOTTO;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -21,20 +23,30 @@ public class Appointment implements Serializable {
     private int priceVariant;
     private String picturePath;
     private String diagnose;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "got")
-    private GOT got;
+
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "Appointment_GOT",
+            joinColumns = @JoinColumn(name = "appointmentID"),
+            inverseJoinColumns = @JoinColumn(name = "gotID")
+    )
+    private List<GOT> got;
 
     private long patient;
-    @ElementCollection
-    @CollectionTable(name = "UsedDrugs", joinColumns =@JoinColumn(name = "drugID"))
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "Appointment_Drug",
+            joinColumns = @JoinColumn(name = "appointmentID"),
+            inverseJoinColumns = @JoinColumn(name = "drugID")
+    )
     private List<Drug> usedDrugs;
     @OneToOne(cascade =  CascadeType.ALL)
     @JoinColumn(name = "vet")
     private Vet vet;
 
     public Appointment(){}
-    public Appointment(long appointmentID, String appointmentDate, int priceVariant, String picturePath, String diagnose, GOT got, long patient, List<Drug> usedDrugs, Vet vet){
+    public Appointment(long appointmentID, String appointmentDate, int priceVariant, String picturePath, String diagnose, List<GOT> got, long patient, List<Drug> usedDrugs, Vet vet){
        this.appointmentID = appointmentID;
        this.appointmentDate = appointmentDate;
        if(isVariantValid(priceVariant)){
@@ -51,7 +63,7 @@ public class Appointment implements Serializable {
        this.vet = vet;
     }
 
-    public Appointment(String appointmentDate, int priceVariant, String picturePath, String diagnose, GOT got, long patient, List<Drug> usedDrugs, Vet vet){
+    public Appointment(String appointmentDate, int priceVariant, String picturePath, String diagnose, List<GOT> got, long patient, List<Drug> usedDrugs, Vet vet){
         this.appointmentDate = appointmentDate;
         if(isVariantValid(priceVariant)){
             this.priceVariant = priceVariant;
@@ -68,11 +80,16 @@ public class Appointment implements Serializable {
     }
 
     public AppointmentTO toAppointmentTO(){
-        List<Long> usedDrugsID = new ArrayList<>();
+        List<DrugTO> usedDrugs = new ArrayList<>();
+        List<GOTTO> got = new ArrayList<>();
         for (Drug i : this.usedDrugs){
-            usedDrugsID.add(i.getDrugID());
+            usedDrugs.add(i.toDrugTO());
         }
-        return new AppointmentTO(this.appointmentID,this.appointmentDate,this.priceVariant, this.picturePath, this.diagnose, this.got, this.patient ,usedDrugsID, this.vet);
+
+        for(GOT i : this.got){
+            got.add(i.toGOTTO());
+        }
+        return new AppointmentTO(this.appointmentID,this.appointmentDate,this.priceVariant, this.picturePath, this.diagnose, got, this.patient ,usedDrugs, this.vet.getVetID(), this.vet.getFirstName(), this.vet.getLastName());
     }
 
     public void addDrug(Drug drug){
@@ -127,11 +144,11 @@ public class Appointment implements Serializable {
         this.diagnose = diagnose;
     }
 
-    public GOT getGot() {
+    public List<GOT> getGot() {
         return got;
     }
 
-    public void setGot(GOT got) {
+    public void setGot(List<GOT> got) {
         this.got = got;
     }
 

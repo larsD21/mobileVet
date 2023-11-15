@@ -14,27 +14,30 @@ public class GOT implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "GOT")
     @Column(name = "gotID")
     private long gotID;
+    private String description;
     private double price1;
     private double price2;
     private double price3;
 
     public GOT(){}
 
-    public GOT(long gotID, double price1, double price2, double price3) {
+    public GOT(long gotID, String description ,double price1, double price2, double price3) {
         this.gotID = gotID;
+        this.description = description;
         this.price1 = price1;
         this.price2 = price2;
         this.price3 = price3;
     }
 
-    public GOT(double price1, double price2, double price3) {
+    public GOT(String description, double price1, double price2, double price3) {
+        this.description = description;
         this.price1 = price1;
         this.price2 = price2;
         this.price3 = price3;
     }
 
     public GOTTO toGOTTO(){
-        return new GOTTO(this.gotID, this.price1, this.price2, this.price3);
+        return new GOTTO(this.gotID, this.description,this.price1, this.price2, this.price3);
     }
 
     public long getGotID() {
@@ -69,4 +72,11 @@ public class GOT implements Serializable {
         this.price3 = price3;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }
