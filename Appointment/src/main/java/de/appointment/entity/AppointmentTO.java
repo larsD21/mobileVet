@@ -13,7 +13,7 @@ import java.util.List;
 public class AppointmentTO {
     private long appointmentID;
     private String date;
-    private int priceVariant;
+    private List<Integer> priceVariant;
     private String picturePath;
     private String diagnose;
     private List<GOTTO> got;
@@ -26,7 +26,7 @@ public class AppointmentTO {
 
     public AppointmentTO(){}
 
-    public AppointmentTO(long appointmentID, String date, int priceVariant,String picturePath, String diagnose, List<GOTTO> got, long patient, List<DrugTO> usedDrugs, long vetID, String firstName, String lastName) {
+    public AppointmentTO(long appointmentID, String date, List<Integer> priceVariant,String picturePath, String diagnose, List<GOTTO> got, long patient, List<DrugTO> usedDrugs, long vetID, String firstName, String lastName) {
         this.appointmentID = appointmentID;
         this.date = date;
         this.priceVariant = priceVariant;
@@ -40,7 +40,7 @@ public class AppointmentTO {
         this.firstName = firstName;
     }
 
-    public AppointmentTO(String date, int priceVariant, String picturePath, String diagnose, List<GOTTO> got, long patient, List<DrugTO> usedDrugs, long vetID, String firstName, String lastName) {
+    public AppointmentTO(String date, List<Integer> priceVariant, String picturePath, String diagnose, List<GOTTO> got, long patient, List<DrugTO> usedDrugs, long vetID, String firstName, String lastName) {
         this.date = date;
         this.priceVariant = priceVariant;
         this.picturePath = picturePath;
@@ -82,11 +82,11 @@ public class AppointmentTO {
         this.date = date;
     }
 
-    public int getPriceVariant() {
+    public List<Integer> getPriceVariant() {
         return priceVariant;
     }
 
-    public void setPriceVariant(int priceVariant) {
+    public void setPriceVariant(List<Integer> priceVariant) {
         this.priceVariant = priceVariant;
     }
 
