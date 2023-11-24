@@ -20,7 +20,9 @@ public class Appointment implements Serializable {
     @Column(name = "appointmentID")
     private long appointmentID;
     private String appointmentDate;
-    private int priceVariant;
+    @ElementCollection
+    @CollectionTable(name="priceVariants", joinColumns = @JoinColumn(name="appointmentID"))
+    private List<Integer> priceVariant;
     private String picturePath;
     private String diagnose;
 
@@ -46,15 +48,18 @@ public class Appointment implements Serializable {
     private Vet vet;
 
     public Appointment(){}
-    public Appointment(long appointmentID, String appointmentDate, int priceVariant, String picturePath, String diagnose, List<GOT> got, long patient, List<Drug> usedDrugs, Vet vet){
+    public Appointment(long appointmentID, String appointmentDate, List<Integer> priceVariant, String picturePath, String diagnose, List<GOT> got, long patient, List<Drug> usedDrugs, Vet vet){
        this.appointmentID = appointmentID;
        this.appointmentDate = appointmentDate;
-       if(isVariantValid(priceVariant)){
-           this.priceVariant = priceVariant;
+        this.priceVariant = new ArrayList<>();
+        if(isVariantValid(priceVariant)){
+            this.priceVariant = priceVariant;
 
-       } else{
-           this.priceVariant = 1;
-       }
+        } else{
+            for(GOT i : got){
+                this.priceVariant.add(1);
+            }
+        }
        this.picturePath = picturePath;
        this.diagnose = diagnose;
        this.got = got;
@@ -63,13 +68,16 @@ public class Appointment implements Serializable {
        this.vet = vet;
     }
 
-    public Appointment(String appointmentDate, int priceVariant, String picturePath, String diagnose, List<GOT> got, long patient, List<Drug> usedDrugs, Vet vet){
+    public Appointment(String appointmentDate, List<Integer> priceVariant, String picturePath, String diagnose, List<GOT> got, long patient, List<Drug> usedDrugs, Vet vet){
         this.appointmentDate = appointmentDate;
+        this.priceVariant = new ArrayList<>();
         if(isVariantValid(priceVariant)){
             this.priceVariant = priceVariant;
 
         } else{
-            this.priceVariant = 1;
+            for(GOT i : got){
+                this.priceVariant.add(1);
+            }
         }
         this.picturePath = picturePath;
         this.diagnose = diagnose;
@@ -108,8 +116,13 @@ public class Appointment implements Serializable {
         }
         return false;
     }
-    private boolean isVariantValid(int priceVariant){
-        return priceVariant == 1 || priceVariant == 2 || priceVariant == 3;
+    private boolean isVariantValid(List<Integer> priceVariant){
+        for(Integer i: priceVariant){
+            if(i < 1 || i > 3){
+                return false;
+            }
+        }
+        return true;
     }
 
     public long getAppointmentID() {
@@ -128,11 +141,11 @@ public class Appointment implements Serializable {
         this.appointmentDate = appointmentDate;
     }
 
-    public int getPriceVariant() {
+    public List<Integer> getPriceVariant() {
         return priceVariant;
     }
 
-    public void setPriceVariant(int priceVariant) {
+    public void setPriceVariant(List<Integer> priceVariant) {
         this.priceVariant = priceVariant;
     }
 
