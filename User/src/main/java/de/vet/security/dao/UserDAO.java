@@ -1,10 +1,10 @@
 package de.vet.security.dao;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import de.vet.security.entity.User;
 import jakarta.ejb.Stateless;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 @Stateless

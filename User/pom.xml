@@ -9,7 +9,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>user</artifactId>
+    <artifactId>User</artifactId>
     <packaging>jar</packaging>
 
     <properties>
@@ -95,4 +95,5 @@
             </plugin>
         </plugins>
     </build>
+
 </project>
