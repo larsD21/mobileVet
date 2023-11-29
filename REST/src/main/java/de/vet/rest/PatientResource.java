@@ -1,6 +1,8 @@
 package de.vet.rest;
 
+import de.patients.entity.OwnerTO;
 import de.patients.entity.PatientTO;
+import de.patients.usecase.IGetOwner;
 import de.vet.security.JWTTokenNeeded;
 import de.vet.security.Role;
 import de.patients.usecase.IGetPatient;
@@ -26,10 +28,24 @@ public class PatientResource {
     @Inject
     IGetPatient getPatient;
 
+    @Inject
+    IGetOwner getOwner;
+
     @POST
     @Path("create")
     //@JWTTokenNeeded(Permissions = Role.VET)
     public Response createPatient(PatientTO patientTO){
+        long ownerID = patientTO.getOwnerID();
+        OwnerTO ownerTO = getOwner.getOwner(ownerID);
+        patientTO.setOwnerFirstName(ownerTO.getFirstName());
+        patientTO.setOwnerLastName(ownerTO.getLastName());
+        patientTO.setOwnerHouseNumber(ownerTO.getHouseNumber());
+        patientTO.setOwnerPlace(ownerTO.getPlace());
+        patientTO.setOwnerZipCode(ownerTO.getZipCode());
+        patientTO.setOwnerStreet(ownerTO.getStreet());
+        patientTO.setOwnerPhoneNumber(ownerTO.getPhoneNumber());
+        patientTO.setOwnerEmail(ownerTO.getEmail());
+
         managePatient.createPatient(patientTO);
         return Response.ok().build();
     }

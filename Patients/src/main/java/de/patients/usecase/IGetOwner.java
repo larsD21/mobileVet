@@ -8,4 +8,5 @@ import java.util.List;
 @Local
 public interface IGetOwner {
     public List<OwnerTO> getAllOwner();
+    public OwnerTO getOwner(long id);
 }

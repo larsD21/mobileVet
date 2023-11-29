@@ -15,6 +15,8 @@ public class OwnerDAO extends GenericDAO<Owner> {
         return super.findAll();
     }
 
+    public Owner getOwner(long id){return super.find(id);}
+
     public void createOwner(Owner owner){
         super.save(owner);
     }

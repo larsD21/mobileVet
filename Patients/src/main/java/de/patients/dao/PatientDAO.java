@@ -17,7 +17,7 @@ public class PatientDAO extends GenericDAO<Patient> {
     }
 
     public void createPatient(Patient patient){
-        super.save(patient);
+        super.update(patient);
     }
 
     public List<Patient> getAllPatient(){
