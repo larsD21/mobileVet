@@ -49,19 +49,19 @@ public class AppointmentResource {
         }
         List<GOTTO> gTOs = new ArrayList<>();
         List<DrugTO> drugTOS = new ArrayList<>();
-        for(int i = 0; i < appointment.getGot().size(); i++){
-            appointment.setDiagnose("Moin");
+        for(int i = 0; i < appointment.getGotIDs().size(); i++){
             GOTTO g = getGOT.getGOT(appointment.getGotIDs().get(i));
             gTOs.add(g);
         }
 
         appointment.setGot(gTOs);
 
-        for (int i = 0; i < appointment.getUsedDrugs().size(); i++){
-            DrugTO d = getDrug.getDrugByID(appointment.getDrugIds().get(i));
-            drugTOS.add(d);
-        }
-
+        //nullpointer exteption wahrscheinlich im schleifen kopf
+//        for (int i = 0; i < appointment.getDrugIds().size(); i++){
+//            DrugTO d = getDrug.getDrugByID(appointment.getDrugIds().get(i));
+//            drugTOS.add(d);
+//        }
+//
         appointment.setUsedDrugs(drugTOS);
 
         appointment.setLastName(getVet.getVetByID(appointment.getVetID()).getLastName());

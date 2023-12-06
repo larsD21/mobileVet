@@ -17,9 +17,9 @@ public class AppointmentTO {
     private List<Integer> priceVariant;
     private String picturePath;
     private String diagnose;
-    private List<GOTTO> got = new ArrayList<>();
+    private List<GOTTO> got;
     private long patient;
-    private List<DrugTO> usedDrugs = new ArrayList<>();
+    private List<DrugTO> usedDrugs;
     private long vetID;
     private String lastName;
     private String firstName;
