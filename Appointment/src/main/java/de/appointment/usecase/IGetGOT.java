@@ -9,4 +9,6 @@ import java.util.List;
 @Local
 public interface IGetGOT {
     public List<GOTTO> getAllGOT();
+
+    public GOTTO getGOT(long id);
 }

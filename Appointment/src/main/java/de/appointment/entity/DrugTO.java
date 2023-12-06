@@ -15,6 +15,10 @@ public class DrugTO {
         this.price = price;
     }
 
+    public DrugTO(long drugID){
+        this.drugID = drugID;
+    }
+
     public Drug toDrug(){
         return new Drug(this.drugID, this.name, this.price);
     }

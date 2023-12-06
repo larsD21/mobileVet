@@ -20,6 +20,10 @@ public class GOTTO {
         this.price3 = price3;
     }
 
+    public GOTTO(long gotID){
+        this.gotID = gotID;
+    }
+
     public GOT toGOT(){
         return new GOT(this.gotID, this.description,this.price1, this.price2, this.price3);
     }

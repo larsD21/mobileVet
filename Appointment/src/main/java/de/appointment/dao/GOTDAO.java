@@ -17,4 +17,8 @@ public class GOTDAO extends GenericDAO<GOT> {
     public List<GOT> getAllGOT(){
         return super.findAll();
     }
+
+    public GOT getGOT(long id){
+        return super.find(id);
+    }
 }

@@ -33,7 +33,7 @@ public class PatientResource {
 
     @POST
     @Path("create")
-    //@JWTTokenNeeded(Permissions = Role.VET)
+    @JWTTokenNeeded(Permissions = Role.VET)
     public Response createPatient(PatientTO patientTO){
         long ownerID = patientTO.getOwnerID();
         OwnerTO ownerTO = getOwner.getOwner(ownerID);
@@ -52,14 +52,14 @@ public class PatientResource {
 
     @GET
     @Path("get/{id}")
-    //@JWTTokenNeeded(Permissions = Role.VET)
+    @JWTTokenNeeded(Permissions = Role.VET)
     public PatientTO getPatient(@PathParam("id") long ID){
         return getPatient.getPatientByID(ID);
     }
 
     @GET
     @Path("getAll")
-    //@JWTTokenNeeded(Permissions = Role.VET)
+    @JWTTokenNeeded(Permissions = Role.VET)
     public List<PatientTO> getAll(){
         return getPatient.getALlPatient();
     }
