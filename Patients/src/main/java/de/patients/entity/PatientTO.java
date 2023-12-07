@@ -2,6 +2,7 @@ package de.patients.entity;
 
 import de.patients.entity.internal.Owner;
 import de.patients.entity.internal.Patient;
+import de.patients.usecase.implementation.GetOwner;
 
 //author Lars Diekmann
 public class PatientTO {
@@ -19,6 +20,7 @@ public class PatientTO {
     private String ownerEmail;
     private String ownerPhoneNumber;
 
+
     public PatientTO(){}
 
     public PatientTO(long patientID, String species, String name, long identNumber, long ownerID, String ownerLastName, String ownerFirstName, String ownerPlace, String ownerZipCode, String ownerStreet, String ownerHouseNumber, String ownerEmail, String ownerPhoneNumber) {
@@ -35,6 +37,13 @@ public class PatientTO {
         this.ownerHouseNumber = ownerHouseNumber;
         this.ownerEmail = ownerEmail;
         this.ownerPhoneNumber = ownerPhoneNumber;
+    }
+
+    public PatientTO(String species, String name, long identNumber, long ownerID) {
+        this.species = species;
+        this.name = name;
+        this.identNumber = identNumber;
+        this.ownerID = ownerID;
     }
 
     public PatientTO(String species, String name, long identNumber, long ownerID, String ownerLastName, String ownerFirstName, String ownerPlace, String ownerZipCode, String ownerStreet, String ownerHouseNumber, String ownerEmail, String ownerPhoneNumber) {

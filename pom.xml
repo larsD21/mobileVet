@@ -11,8 +11,8 @@
     <modules>
         <module>REST</module>
         <module>Appointment</module>
-        <module>user</module>
         <module>Patients</module>
+        <module>User</module>
     </modules>
 
 </project>

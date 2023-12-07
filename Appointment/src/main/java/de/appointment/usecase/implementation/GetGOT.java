@@ -28,4 +28,11 @@ public class GetGOT implements IGetGOT {
         });
         return gottos;
     }
+
+    @Override
+    public GOTTO getGOT(long id) {
+        return gotdao.getGOT(id).toGOTTO();
+    }
+
+
 }

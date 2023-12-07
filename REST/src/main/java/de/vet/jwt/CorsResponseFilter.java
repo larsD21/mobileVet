@@ -24,8 +24,8 @@ public class CorsResponseFilter implements Filter {
         // Set CORS headers
         httpResponse.setHeader("Access-Control-Allow-Origin", "*");
         httpResponse.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-        httpResponse.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-
+        httpResponse.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, username, password, Authorization, vetID");
+        httpResponse.setHeader("Access-Control-Expose-Headers", "Authorization, vetID");
         // Continue the filter chain
         chain.doFilter(request, response);
     }

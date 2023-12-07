@@ -28,4 +28,9 @@ public class GetOwner implements IGetOwner {
 
         return ownerTOS;
     }
+
+    @Override
+    public OwnerTO getOwner(long id) {
+        return ownerDAO.getOwner(id).toOwnerTO();
+    }
 }

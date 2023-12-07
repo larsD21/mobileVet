@@ -6,6 +6,7 @@ import de.appointment.entity.internal.GOT;
 import de.appointment.entity.internal.Vet;
 import de.patients.usecase.implementation.GetPatient;
 
+import javax.persistence.Transient;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,8 +24,23 @@ public class AppointmentTO {
     private String lastName;
     private String firstName;
 
+    @Transient
+    private List<Long> gotIDs;
+    @Transient
+    private List<Long> drugIds;
 
     public AppointmentTO(){}
+
+    public AppointmentTO(String date, List<Integer> priceVariant, String picturePath, String diagnose, long patient, long vetID, List<Long> drugIDs, List<Long> gotIDs) {
+        this.date = date;
+        this.priceVariant = priceVariant;
+        this.picturePath = picturePath;
+        this.diagnose = diagnose;
+        this.patient = patient;
+        this.vetID = vetID;
+        this.gotIDs = gotIDs;
+        this.drugIds = drugIDs;
+    }
 
     public AppointmentTO(long appointmentID, String date, List<Integer> priceVariant,String picturePath, String diagnose, List<GOTTO> got, long patient, List<DrugTO> usedDrugs, long vetID, String firstName, String lastName) {
         this.appointmentID = appointmentID;
@@ -54,16 +70,16 @@ public class AppointmentTO {
     }
 
     public Appointment toAppointment(){
-        List<Drug> usedDrugs = new ArrayList<>();
-        List<GOT> got = new ArrayList<>();
+        List<Drug> usedDrugsOb = new ArrayList<>();
+        List<GOT> gotOb = new ArrayList<>();
         for(DrugTO i : this.usedDrugs){
-            usedDrugs.add(i.toDrug());
+            usedDrugsOb.add(i.toDrug());
         }
 
         for(GOTTO i : this.got){
-            got.add(i.toGOT());
+            gotOb.add(i.toGOT());
         }
-        return new Appointment(this.appointmentID, this.date, this.priceVariant,this.picturePath, this.diagnose, got, this.patient, usedDrugs, new Vet(this.vetID, this.lastName, this.firstName));
+        return new Appointment(this.appointmentID, this.date, this.priceVariant,this.picturePath, this.diagnose, gotOb, this.patient, usedDrugsOb, new Vet(this.vetID, this.lastName, this.firstName));
     }
 
     public long getAppointmentID() {
@@ -154,4 +170,19 @@ public class AppointmentTO {
         this.picturePath = picturePath;
     }
 
+    public List<Long> getGotIDs() {
+        return gotIDs;
+    }
+
+    public void setGotIDs(List<Long> gotIDs) {
+        this.gotIDs = gotIDs;
+    }
+
+    public List<Long> getDrugIds() {
+        return drugIds;
+    }
+
+    public void setDrugIds(List<Long> drugIds) {
+        this.drugIds = drugIds;
+    }
 }

@@ -28,7 +28,7 @@ public class OwnerResource {
 
     @POST
     @Path("create")
-    //@JWTTokenNeeded(Permissions = Role.VET)
+    @JWTTokenNeeded(Permissions = Role.VET)
     public Response createOwner(OwnerTO owner){
         manageOwner.createOwner(owner);
         return Response.ok().build();
@@ -36,7 +36,7 @@ public class OwnerResource {
 
     @GET
     @Path("getAll")
-    //@JWTTokenNeeded(Permissions = Role.VET)
+    @JWTTokenNeeded(Permissions = Role.VET)
     public List<OwnerTO> getAllOwner(){
         return getOwner.getAllOwner();
     }

@@ -1,11 +1,10 @@
 package de.vet.security.entity;
 
 
+import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.util.List;
-
-import jakarta.persistence.*;
 
 @Entity
 @Table(name = "t_user")
