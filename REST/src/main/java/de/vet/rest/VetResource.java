@@ -11,7 +11,7 @@ import jakarta.ws.rs.core.MediaType;
 
 //author Lars Diekmann
 
-@Path("got")
+@Path("vet")
 @Stateless
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
