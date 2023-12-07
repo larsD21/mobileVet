@@ -17,7 +17,7 @@ public class SimpleKeyGenerator implements Serializable, KeyGenerator {
 
 	@Override
 	public byte[] generateKey() {
-		String keyString = "MyPrivateKeyIsHopefullyLongEnough";
+		String keyString = "ghuaigoagffsdauhfgqfasdgarhzgreauhaertgartafgareqtaqgaiwhsva";
 //	    Key key = new SecretKeySpec(keyString.getBytes(), 0, keyString.getBytes().length, "DES");
 	    return keyString.getBytes();
 		
