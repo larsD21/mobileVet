@@ -4,7 +4,6 @@ import de.appointment.entity.internal.Appointment;
 import de.appointment.entity.internal.Drug;
 import de.appointment.entity.internal.GOT;
 import de.appointment.entity.internal.Vet;
-import de.patients.usecase.implementation.GetPatient;
 
 import javax.persistence.Transient;
 import java.util.ArrayList;
@@ -27,7 +26,7 @@ public class AppointmentTO {
     @Transient
     private List<Long> gotIDs;
     @Transient
-    private List<Long> drugIds;
+    private List<Long> drugIDs;
 
     public AppointmentTO(){}
 
@@ -39,10 +38,22 @@ public class AppointmentTO {
         this.patient = patient;
         this.vetID = vetID;
         this.gotIDs = gotIDs;
-        this.drugIds = drugIDs;
+        this.drugIDs = drugIDs;
     }
 
-    public AppointmentTO(long appointmentID, String date, List<Integer> priceVariant,String picturePath, String diagnose, List<GOTTO> got, long patient, List<DrugTO> usedDrugs, long vetID, String firstName, String lastName) {
+    public AppointmentTO(long appointmentID, String date, List<Integer> priceVariant, String picturePath, String diagnose, long patient, long vetID, List<Long> gotIDs, List<Long> drugIDs) {
+        this.appointmentID = appointmentID;
+        this.date = date;
+        this.priceVariant = priceVariant;
+        this.picturePath = picturePath;
+        this.diagnose = diagnose;
+        this.patient = patient;
+        this.vetID = vetID;
+        this.gotIDs = gotIDs;
+        this.drugIDs = drugIDs;
+    }
+
+    public AppointmentTO(long appointmentID, String date, List<Integer> priceVariant, String picturePath, String diagnose, List<GOTTO> got, long patient, List<DrugTO> usedDrugs, long vetID, String firstName, String lastName) {
         this.appointmentID = appointmentID;
         this.date = date;
         this.priceVariant = priceVariant;
@@ -72,9 +83,12 @@ public class AppointmentTO {
     public Appointment toAppointment(){
         List<Drug> usedDrugsOb = new ArrayList<>();
         List<GOT> gotOb = new ArrayList<>();
+        if(this.usedDrugs != null){
         for(DrugTO i : this.usedDrugs){
             usedDrugsOb.add(i.toDrug());
         }
+        }
+
 
         for(GOTTO i : this.got){
             gotOb.add(i.toGOT());
@@ -178,11 +192,11 @@ public class AppointmentTO {
         this.gotIDs = gotIDs;
     }
 
-    public List<Long> getDrugIds() {
-        return drugIds;
+    public List<Long> getDrugIDs() {
+        return drugIDs;
     }
 
-    public void setDrugIds(List<Long> drugIds) {
-        this.drugIds = drugIds;
+    public void setDrugIDs(List<Long> drugIDs) {
+        this.drugIDs = drugIDs;
     }
 }
