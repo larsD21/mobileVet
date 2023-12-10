@@ -42,7 +42,7 @@ public class ImageResource {
             }
             String imagePath = imageDirectory + File.separator + imageName;
             return Response.ok(imagePath)
-                    .header("Content-Disposition", "attachment; filename=\"" + imageName + "\"")
+                    .header("Content-Disposition", "attachment; filename=\"" + imageDirectory + "/" + imageName + "\"")
                     .build();
         } catch (IOException e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
