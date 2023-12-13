@@ -25,8 +25,11 @@ public class GetBilling implements IGetBilling {
 
     @Override
     public List<BillingTO> getBillings(String startDateStr, String endDateStr) {
-        LocalDate startDate = LocalDate.parse(startDateStr, DateTimeFormatter.BASIC_ISO_DATE);
-        LocalDate endDate = LocalDate.parse(endDateStr, DateTimeFormatter.BASIC_ISO_DATE);
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter outputFormatter = DateTimeFormatter.BASIC_ISO_DATE;
+
+        LocalDate startDate = LocalDate.parse(startDateStr, inputFormatter);
+        LocalDate endDate = LocalDate.parse(endDateStr, inputFormatter);
 
         List<Billing> billings = billingDAO.getAllBilling();
         billings.sort(Comparator.comparing(Billing::getBillingID));
@@ -35,10 +38,10 @@ public class GetBilling implements IGetBilling {
         List<Billing> createdBillings = new ArrayList<>();
 
         for (Appointment appointment : appointments) {
-            LocalDate appointmentDate = LocalDate.parse(appointment.getAppointmentDate(), DateTimeFormatter.BASIC_ISO_DATE);
+            LocalDate appointmentDate = LocalDate.parse(appointment.getAppointmentDate(), inputFormatter);
             boolean isWithinRange = !appointmentDate.isBefore(startDate) && !appointmentDate.isAfter(endDate);
 
-            if (!isAppointmentInBillings(appointment, billings) && isWithinRange) {
+            if (isAppointmentInBillings(appointment, billings)==false && isWithinRange) {
                 createdBillings.add(new Billing(appointment));
             }
         }
@@ -59,9 +62,9 @@ public class GetBilling implements IGetBilling {
         int right = billings.size() - 1;
 
         while (left <= right) {
-            int mid = left + (right - left) / 2;
+            int mid = left + ((right - left) / 2);
             Billing midBilling = billings.get(mid);
-            long midBillingID = midBilling.getBillingID();
+            long midBillingID = midBilling.getAppointment().getAppointmentID();
             long appointmentID = appointment.getAppointmentID();
 
             if (midBillingID == appointmentID) {

@@ -5,7 +5,6 @@ import de.appointment.entity.internal.Drug;
 import de.appointment.entity.internal.GOT;
 import de.appointment.entity.internal.Vet;
 
-import javax.persistence.Transient;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,10 +21,7 @@ public class AppointmentTO {
     private long vetID;
     private String lastName;
     private String firstName;
-
-    @Transient
     private List<Long> gotIDs;
-    @Transient
     private List<Long> drugIDs;
 
     public AppointmentTO(){}

@@ -26,13 +26,35 @@ public class Billing implements Serializable {
     private double tax;
 
     public Billing(){}
-    public Billing(Appointment appointment){
-        this.appointment = appointment;
-    }
 
-    public Billing(long billingID, Appointment appointment) {
-        this.billingID = billingID;
+    public Billing(Appointment appointment) {
         this.appointment = appointment;
+        this.cost = 0;
+        this.tax = 0;
+        for(int i = 0; i<appointment.getGot().size(); i++){
+            int variant = appointment.getPriceVariant().get(i);
+            switch(variant){
+                case 1:
+                    this.cost += appointment.getGot().get(i).getPrice1();
+                    break;
+                case 2:
+                    this.cost += appointment.getGot().get(i).getPrice2();
+                    break;
+                case 3:
+                    this.cost += appointment.getGot().get(i).getPrice3();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        this.tax = cost*0.19;
+
+        for(int i = 0; i<appointment.getUsedDrugs().size(); i++){
+            this.cost += appointment.getUsedDrugs().get(i).getPrice();
+            this.tax += appointment.getUsedDrugs().get(i).getPrice() * 0.19;
+        }
+
     }
 
     public BillingTO toBillingTO(){
@@ -46,11 +68,11 @@ public class Billing implements Serializable {
                 this.appointment.getAppointmentDate(),
                 this.appointment.getVet().getFirstName(),
                 this.appointment.getVet().getLastName(),
-                getPatient.getPatientByID(this.appointment.getPatient()).getSpecies(),
                 this.appointment.getDiagnose(),
                 gotIDs,
                 this.cost,
-                this.tax);
+                this.tax,
+                this.appointment.getPatient());
     }
 
     public long getBillingID() {
