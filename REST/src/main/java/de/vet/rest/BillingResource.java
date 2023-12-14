@@ -1,5 +1,6 @@
 package de.vet.rest;
 
+import de.appointment.entity.AppointmentTO;
 import de.appointment.entity.BillingTO;
 import de.patients.usecase.IGetPatient;
 import de.vet.security.JWTTokenNeeded;
@@ -37,6 +38,13 @@ public class BillingResource {
             billing.add(i);
         });
         return billing;
+    }
+
+    @GET
+    @Path("getUnbilled")
+    //@JWTTokenNeeded(Permissions = Role.ACCOUNTANT)
+    public List<AppointmentTO> getUnbilled(){
+        return getBilling.getUnbilledAppointments();
     }
 
 

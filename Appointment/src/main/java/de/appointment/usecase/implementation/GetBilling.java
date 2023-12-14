@@ -1,6 +1,7 @@
 package de.appointment.usecase.implementation;
 
 import de.appointment.dao.AppointmentDAO;
+import de.appointment.entity.AppointmentTO;
 import de.appointment.entity.BillingTO;
 import de.appointment.entity.internal.Appointment;
 import de.appointment.entity.internal.Billing;
@@ -32,7 +33,7 @@ public class GetBilling implements IGetBilling {
         LocalDate endDate = LocalDate.parse(endDateStr, inputFormatter);
 
         List<Billing> billings = billingDAO.getAllBilling();
-        billings.sort(Comparator.comparing(Billing::getBillingID));
+        billings.sort(Comparator.comparing(billing -> billing.getAppointment().getAppointmentID()));
 
         List<Appointment> appointments = appointmentDAO.getAllAppointments();
         List<Billing> createdBillings = new ArrayList<>();
@@ -41,7 +42,7 @@ public class GetBilling implements IGetBilling {
             LocalDate appointmentDate = LocalDate.parse(appointment.getAppointmentDate(), inputFormatter);
             boolean isWithinRange = !appointmentDate.isBefore(startDate) && !appointmentDate.isAfter(endDate);
 
-            if (isAppointmentInBillings(appointment, billings)==false && isWithinRange) {
+            if (!isAppointmentInBillings(appointment, billings) && isWithinRange) {
                 createdBillings.add(new Billing(appointment));
             }
         }
@@ -57,6 +58,22 @@ public class GetBilling implements IGetBilling {
         return newBillings;
     }
 
+    @Override
+    public List<AppointmentTO> getUnbilledAppointments() {
+        List<Appointment> allAppointments = appointmentDAO.getAllAppointments();
+        List<AppointmentTO> unbilledAppointments = new ArrayList<>();
+        List<Billing> billings = billingDAO.getAllBilling();
+
+        billings.sort(Comparator.comparing(billing -> billing.getAppointment().getAppointmentID()));
+
+        for (Appointment i : allAppointments){
+            if (!isAppointmentInBillings(i, billings)){
+                unbilledAppointments.add(i.toAppointmentTO());
+            }
+        }
+        return unbilledAppointments;
+    }
+
     private boolean isAppointmentInBillings(Appointment appointment, List<Billing> billings) {
         int left = 0;
         int right = billings.size() - 1;
@@ -64,12 +81,12 @@ public class GetBilling implements IGetBilling {
         while (left <= right) {
             int mid = left + ((right - left) / 2);
             Billing midBilling = billings.get(mid);
-            long midBillingID = midBilling.getAppointment().getAppointmentID();
+            long midAppointmentID = midBilling.getAppointment().getAppointmentID();
             long appointmentID = appointment.getAppointmentID();
 
-            if (midBillingID == appointmentID) {
+            if (midAppointmentID == appointmentID) {
                 return true;
-            } else if (midBillingID < appointmentID) {
+            } else if (midAppointmentID < appointmentID) {
                 left = mid + 1;
             } else {
                 right = mid - 1;
