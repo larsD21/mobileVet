@@ -29,7 +29,7 @@ public class BillingResource {
 
     @GET
     @Path("getBilling/{startDate}/{endDate}")
-    //@JWTTokenNeeded(Permissions = Role.ACCOUNTANT)
+    @JWTTokenNeeded(Permissions = Role.ACCOUNTANT)
     public List<BillingTO> getAllBilling(@PathParam("startDate") String startDate, @PathParam("endDate") String endDate){
         List<BillingTO> billing = new ArrayList<>();
 
@@ -42,7 +42,7 @@ public class BillingResource {
 
     @GET
     @Path("getUnbilled")
-    //@JWTTokenNeeded(Permissions = Role.ACCOUNTANT)
+    @JWTTokenNeeded(Permissions = Role.ACCOUNTANT)
     public List<AppointmentTO> getUnbilled(){
         return getBilling.getUnbilledAppointments();
     }

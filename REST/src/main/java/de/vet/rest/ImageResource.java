@@ -25,7 +25,7 @@ public class ImageResource {
 
     @POST
     @Path("uploadImage")
-    //@JWTTokenNeeded(Permissions = Role.VET)
+    @JWTTokenNeeded(Permissions = Role.VET)
     public Response uploadImage(InputStream imageStream) {
         String imageDirectory = "/home/mattern/Dokumente/images";
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmmssSSS");

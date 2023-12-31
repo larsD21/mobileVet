@@ -6,6 +6,8 @@ import de.appointment.entity.DrugTO;
 import de.appointment.entity.GOTTO;
 import de.appointment.entity.internal.Appointment;
 import de.appointment.usecase.*;
+import de.vet.security.JWTTokenNeeded;
+import de.vet.security.Role;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
@@ -40,7 +42,7 @@ public class AppointmentResource {
 
     @POST
     @Path("create")
-    //@JWTTokenNeeded(Permissions = Role.VET)
+    @JWTTokenNeeded(Permissions = Role.VET)
     public Response createAppointment(AppointmentTO appointment){
         if(appointment.getGotIDs().size() != appointment.getPriceVariant().size()){
             return Response.status(403, "GOT and priceVariant need the same length" ).build();
@@ -75,13 +77,16 @@ public class AppointmentResource {
 
     @POST
     @Path("edit")
-    //@JWTTokenNeeded(Permissions = Role.VET)
+    @JWTTokenNeeded(Permissions = Role.VET)
     public Response editAppointment(AppointmentTO appointment){
         AppointmentTO oldAppointment = getAppointment.getAppointmentByID(appointment.getAppointmentID());
-        String path = oldAppointment.getPicturePath();
-        File picture = new File(path);
+        if(oldAppointment.getPicturePath() != null){
+            String path = oldAppointment.getPicturePath();
+            File picture = new File(path);
 
-        picture.delete();
+            picture.delete();
+        }
+
 
         if(appointment.getGotIDs().size() != appointment.getPriceVariant().size()){
             return Response.status(403, "GOT and priceVariant need the same length" ).build();
