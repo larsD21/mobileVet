@@ -112,7 +112,7 @@ public class UserService {
         		  .setSubject(user.getUsername())
         		  .claim("Roles", user.getRoles().toString())
                   .setIssuedAt(new Date())
-                  .setExpiration(toDate(LocalDateTime.now().plusMinutes(75L)))
+                  .setExpiration(toDate(LocalDateTime.now().plusMinutes(15L)))
         		  .signWith(SignatureAlgorithm.HS256, secret)
         		  .compact();
 		return jws;

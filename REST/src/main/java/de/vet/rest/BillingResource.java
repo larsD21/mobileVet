@@ -47,5 +47,14 @@ public class BillingResource {
         return getBilling.getUnbilledAppointments();
     }
 
+    @GET
+    @Path("getUnbilledVet")
+    @JWTTokenNeeded(Permissions = Role.VET)
+    public List<AppointmentTO> getUnbilledVet(){
+        return getBilling.getUnbilledAppointments();
+    }
+
+
+
 
 }
