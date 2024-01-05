@@ -1,15 +1,20 @@
 package de.vet.rest;
 
+import com.mysql.cj.result.Field;
 import de.appointment.entity.AppointmentTO;
 import de.appointment.entity.DrugTO;
 import de.appointment.entity.GOTTO;
+import de.appointment.entity.internal.Appointment;
 import de.appointment.usecase.*;
+import de.vet.security.JWTTokenNeeded;
+import de.vet.security.Role;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +42,7 @@ public class AppointmentResource {
 
     @POST
     @Path("create")
-    //@JWTTokenNeeded(Permissions = Role.VET)
+    @JWTTokenNeeded(Permissions = Role.VET)
     public Response createAppointment(AppointmentTO appointment){
         if(appointment.getGotIDs().size() != appointment.getPriceVariant().size()){
             return Response.status(403, "GOT and priceVariant need the same length" ).build();
@@ -52,7 +57,6 @@ public class AppointmentResource {
         appointment.setGot(gTOs);
 
         if(appointment.getDrugIDs() != null){
-            //nullpointer exteption wahrscheinlich im schleifen kopf
             for (int i = 0; i < appointment.getDrugIDs().size(); i++){
                 DrugTO d = getDrug.getDrugByID(appointment.getDrugIDs().get(i));
                 drugTOS.add(d);
@@ -73,8 +77,17 @@ public class AppointmentResource {
 
     @POST
     @Path("edit")
-    //@JWTTokenNeeded(Permissions = Role.VET)
+    @JWTTokenNeeded(Permissions = Role.VET)
     public Response editAppointment(AppointmentTO appointment){
+        AppointmentTO oldAppointment = getAppointment.getAppointmentByID(appointment.getAppointmentID());
+        if(oldAppointment.getPicturePath() != null){
+            String path = oldAppointment.getPicturePath();
+            File picture = new File(path);
+
+            picture.delete();
+        }
+
+
         if(appointment.getGotIDs().size() != appointment.getPriceVariant().size()){
             return Response.status(403, "GOT and priceVariant need the same length" ).build();
         }
@@ -88,7 +101,6 @@ public class AppointmentResource {
         appointment.setGot(gTOs);
 
         if(appointment.getDrugIDs() != null){
-            //nullpointer exteption wahrscheinlich im schleifen kopf
             for (int i = 0; i < appointment.getDrugIDs().size(); i++){
                 DrugTO d = getDrug.getDrugByID(appointment.getDrugIDs().get(i));
                 drugTOS.add(d);
@@ -102,6 +114,7 @@ public class AppointmentResource {
 
         appointment.setLastName(getVet.getVetByID(appointment.getVetID()).getLastName());
         appointment.setFirstName(getVet.getVetByID(appointment.getVetID()).getFirstName());
+        manageAppointment.editAppointment(appointment);
         return Response.ok().build();
     }
 

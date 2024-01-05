@@ -25,7 +25,7 @@ public class ImageResource {
 
     @POST
     @Path("uploadImage")
-    //@JWTTokenNeeded(Permissions = Role.VET)
+    @JWTTokenNeeded(Permissions = Role.VET)
     public Response uploadImage(InputStream imageStream) {
         String imageDirectory = "/home/mattern/Dokumente/images";
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
@@ -42,7 +42,7 @@ public class ImageResource {
             }
             String imagePath = imageDirectory + File.separator + imageName;
             return Response.ok(imagePath)
-                    .header("Content-Disposition", "attachment; filename=\"" + imageName + "\"")
+                    .header("Content-Disposition", "attachment; filename=\"" + imageDirectory + "/" + imageName + "\"")
                     .build();
         } catch (IOException e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)

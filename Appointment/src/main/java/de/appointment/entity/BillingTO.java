@@ -13,6 +13,7 @@ public class BillingTO {
     private String vetFirstName;
     private String vetLastName;
     private String species;
+    private long patientID;
     private String diagnose;
     private List<Long> gotID;
     private double cost;
@@ -31,9 +32,17 @@ public class BillingTO {
         this.tax = tax;
     }
 
-    public Billing toBilling(){
-        IGetAppointment getAppointment = new GetAppointment();
-        return new Billing(billingID, getAppointment.getAppointmentByID(appointmentID).toAppointment());
+    public BillingTO(long billingID, long appointmentID, String date, String vetFirstName, String vetLastName, String diagnose, List<Long> gotID, double cost, double tax, long patientID) {
+        this.billingID = billingID;
+        this.appointmentID = appointmentID;
+        this.date = date;
+        this.vetFirstName = vetFirstName;
+        this.vetLastName = vetLastName;
+        this.diagnose = diagnose;
+        this.gotID = gotID;
+        this.cost = cost;
+        this.tax = tax;
+        this.patientID = patientID;
     }
 
     public long getBillingID() {
@@ -114,5 +123,13 @@ public class BillingTO {
 
     public void setTax(double tax) {
         this.tax = tax;
+    }
+
+    public long getPatientID() {
+        return patientID;
+    }
+
+    public void setPatientID(long patientID) {
+        this.patientID = patientID;
     }
 }

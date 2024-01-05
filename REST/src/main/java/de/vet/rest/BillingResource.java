@@ -1,6 +1,8 @@
 package de.vet.rest;
 
+import de.appointment.entity.AppointmentTO;
 import de.appointment.entity.BillingTO;
+import de.patients.usecase.IGetPatient;
 import de.vet.security.JWTTokenNeeded;
 import de.vet.security.Role;
 import de.appointment.usecase.IGetBilling;
@@ -9,6 +11,7 @@ import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 
+import java.util.ArrayList;
 import java.util.List;
 
 //Author Lars Diekmann
@@ -21,12 +24,37 @@ public class BillingResource {
     @Inject
     IGetBilling getBilling;
 
+    @Inject
+    IGetPatient getPatient;
+
     @GET
     @Path("getBilling/{startDate}/{endDate}")
-    //@JWTTokenNeeded(Permissions = Role.ACCOUNTANT)
+    @JWTTokenNeeded(Permissions = Role.ACCOUNTANT)
     public List<BillingTO> getAllBilling(@PathParam("startDate") String startDate, @PathParam("endDate") String endDate){
-        return getBilling.getBillings(startDate, endDate);
+        List<BillingTO> billing = new ArrayList<>();
+
+        getBilling.getBillings(startDate, endDate).forEach(i -> {
+            i.setSpecies(getPatient.getPatientByID(i.getPatientID()).getSpecies());
+            billing.add(i);
+        });
+        return billing;
     }
+
+    @GET
+    @Path("getUnbilled")
+    @JWTTokenNeeded(Permissions = Role.ACCOUNTANT)
+    public List<AppointmentTO> getUnbilled(){
+        return getBilling.getUnbilledAppointments();
+    }
+
+    @GET
+    @Path("getUnbilledVet")
+    @JWTTokenNeeded(Permissions = Role.VET)
+    public List<AppointmentTO> getUnbilledVet(){
+        return getBilling.getUnbilledAppointments();
+    }
+
+
 
 
 }
